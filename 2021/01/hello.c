@@ -8,6 +8,3 @@ int main(){
   printf("%d - %d = %d\n", a, b, sub(a, b));
 }
 
-
-
-

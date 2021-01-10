@@ -2,7 +2,8 @@
 
 - Cả 3:
 
-  - Viết một thư viện `my_math.h`, trong đó chứa các hàm sau:
+  - Viết một thư viện `my_math.h`, trong đó chứa các hàm sau (example
+    [my_math.h](./my_math.h))
     - `add(int a, int b)`: trả về `a+b`
     - `sub(int a, int b)`: trả về `a-b`
     - `mul(int a, int b)`: trả về `a*b`
