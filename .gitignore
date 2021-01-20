@@ -4,3 +4,4 @@
 !Makefile
 !*.c
 !*.md
+!*.yaml
