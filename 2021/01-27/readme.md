@@ -1,6 +1,6 @@
 # 2021-01-27
 
-## Kiểm tra bài tập về nhà 2021-01-20
+## Kiểm tra bài tập về nhà 2021-01-24
 
 - Huy:
 
