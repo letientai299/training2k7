@@ -15,9 +15,8 @@ int num_of_digits(int line_number)
 
 // Print a horizontal line that should be longer than any line in the input
 // file, plus the space to display the line number columns.
-void print_horizonal_line(int line_number, int max)
+void print_horizonal_line(int number_lenght, int max)
 {
-  int number_lenght = num_of_digits(line_number);
   // prints the space
   for (int i = 0; i < number_lenght; i++) {
     printf(" ");
@@ -64,10 +63,11 @@ int main(int argc, char* argv[])
   }
   fclose(file);
 
-  // print the top line
-  print_horizonal_line(line_number, max);
-
   int number_lenght = num_of_digits(line_number);
+
+  // print the top line
+  print_horizonal_line(number_lenght, max);
+
 
   char line_format[10];
   // Prepare the string format to be used for printing the line of text.
@@ -86,6 +86,6 @@ int main(int argc, char* argv[])
   fclose(file1);
 
   // finally, print the bottom line
-  print_horizonal_line(line_number, max);
+  print_horizonal_line(number_lenght, max);
   return 0;
 }
