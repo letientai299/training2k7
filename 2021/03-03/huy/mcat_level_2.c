@@ -93,7 +93,6 @@ int main(int argc, char* argv[])
     }
   }
   fclose(file1);
-  printf("%c", '\n');
   Row(LineNumber, max);
   return 0;
 }
