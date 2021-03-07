@@ -6,36 +6,29 @@
 // file, plus the space to display the line number columns.
 void print_horizonal_line(int line_number, int max)
 {
-  if (line_number > 99) {
-    printf("%s", "   ");
-    for (int i = 0; i <= max; ++i) {
-      if (i == 0 || i == max) {
-        printf("%c", '+');
-      } else {
-        printf("%c", '-');
-      }
-    }
-  } else {
-    if (line_number > 9) {
-      printf("%s", "  ");
-      for (int i = 0; i <= max; ++i) {
-        if (i == 0 || i == max) {
-          printf("%c", '+');
-        } else {
-          printf("%c", '-');
-        }
-      }
-    } else {
-      printf("%s", " ");
-      for (int i = 0; i <= max; ++i) {
-        if (i == 0 || i == max) {
-          printf("%c", '+');
-        } else {
-          printf("%c", '-');
-        }
-      }
-    }
+  // calculate the length to print the line number
+  int number_lenght = 0;
+  while(line_number > 0 ) {
+    line_number/=10;
+    number_lenght ++;
   }
+
+  // prints the space
+  for(int i=0; i< number_lenght; i++) {
+    printf(" ");
+  }
+
+  // print the plus (+) chracter
+  printf("+");
+
+  // print the series of hyphen (-)
+  for(int i=0; i< max; i++) {
+    printf("-");
+  }
+
+  // end the line with another plus and a new line character
+  printf("+\n");
+  return;
 }
 
 int main(int argc, char* argv[])
@@ -51,6 +44,9 @@ int main(int argc, char* argv[])
 
   char const* filename = argv[1];
   FILE* file = fopen(filename, "r");
+
+  // TODO: if the file has any line longer than 512, then this code will has a
+  // bug.
   char line[512];
   while (fgets(line, sizeof(line), file)) {
     if (max < strlen(line)) {
@@ -62,10 +58,6 @@ int main(int argc, char* argv[])
     line_number++;
   }
   fclose(file);
-
-  // TODO: this is a bug, we don't really know how many characters we need for
-  // the left column yet. 3 will only works for file with less than 100 lines.
-  max += 3;
 
   // print the top line
   print_horizonal_line(line_number, max);
