@@ -2,19 +2,24 @@
 #include <stdlib.h>
 #include <string.h>
 
+// calculate the length to print the line number
+int num_of_digits(int line_number)
+{
+  int number_lenght = 0;
+  while (line_number > 0) {
+    line_number /= 10;
+    number_lenght++;
+  }
+  return number_lenght;
+}
+
 // Print a horizontal line that should be longer than any line in the input
 // file, plus the space to display the line number columns.
 void print_horizonal_line(int line_number, int max)
 {
-  // calculate the length to print the line number
-  int number_lenght = 0;
-  while(line_number > 0 ) {
-    line_number/=10;
-    number_lenght ++;
-  }
-
+  int number_lenght = num_of_digits(line_number);
   // prints the space
-  for(int i=0; i< number_lenght; i++) {
+  for (int i = 0; i < number_lenght; i++) {
     printf(" ");
   }
 
@@ -22,7 +27,7 @@ void print_horizonal_line(int line_number, int max)
   printf("+");
 
   // print the series of hyphen (-)
-  for(int i=0; i< max; i++) {
+  for (int i = 0; i < max; i++) {
     printf("-");
   }
 
@@ -61,45 +66,22 @@ int main(int argc, char* argv[])
 
   // print the top line
   print_horizonal_line(line_number, max);
-  printf("%c", '\n');
+
+  int number_lenght = num_of_digits(line_number);
+
+  char line_format[10];
+  // Prepare the string format to be used for printing the line of text.
+  // If the number_lenght is 3, our string format should be "%3d| %s".
+  // Note that "%%" means a single "%" in the output string, and here,
+  // we're using sprintf to print INTO A STRING, instead of print into stdout.
+  sprintf(line_format, "%%%dd| %%s", number_lenght);
 
   // read the file again, and print the line number column together with the
   // line in file.
   FILE* file1 = fopen(filename, "r");
-  if (line_number < 1000 && line_number > 99) {
-    while (fgets(line, sizeof(line), file1)) {
-      if (i > 99) {
-        printf("%d| %s", i, line);
-        i++;
-      }
-      if (i < 100 && i > 9) {
-        printf(" %d| %s", i, line);
-        i++;
-      }
-      if (i < 10) {
-        printf("  %d| %s", i, line);
-        i++;
-      }
-    }
-  } else {
-    if (line_number < 100 && line_number > 9) {
-      while (fgets(line, sizeof(line), file1)) {
-        if (i >= 10) {
-          printf("%d| %s", i, line);
-          i++;
-        }
-        if (i <= 9) {
-          printf(" %d| %s", i, line);
-          i++;
-        }
-      }
-    } else {
-      if (line_number < 10) {
-        while (fgets(line, sizeof(line), file1)) {
-          printf("%d| %s", i, line);
-        }
-      }
-    }
+  while (fgets(line, sizeof(line), file1)) {
+    printf(line_format, i, line);
+    i++;
   }
   fclose(file1);
 
