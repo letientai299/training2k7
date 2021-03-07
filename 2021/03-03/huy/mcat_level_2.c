@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-void Row(int LineNumber, int max)
+void print_horizonal_line(int line_number, int max)
 {
-  if (LineNumber > 99) {
+  if (line_number > 99) {
     printf("%s", "   ");
     for (int i = 0; i <= max; ++i) {
       if (i == 0 || i == max) {
@@ -14,7 +14,7 @@ void Row(int LineNumber, int max)
       }
     }
   } else {
-    if (LineNumber > 9) {
+    if (line_number > 9) {
       printf("%s", "  ");
       for (int i = 0; i <= max; ++i) {
         if (i == 0 || i == max) {
@@ -38,7 +38,7 @@ void Row(int LineNumber, int max)
 
 int main(int argc, char* argv[])
 {
-  int i = 1, LineNumber = 0, max = 0, column;
+  int i = 1, line_number = 0, max = 0, column;
   if (argc == 1) {
     printf("You need me");
     return 0;
@@ -50,14 +50,16 @@ int main(int argc, char* argv[])
     if (max < strlen(line)) {
       max = strlen(line);
     }
-    LineNumber++;
+    line_number++;
   }
   fclose(file);
   max += 3;
-  Row(LineNumber, max);
+
+  print_horizonal_line(line_number, max);
+
   printf("%c", '\n');
   FILE* file1 = fopen(filename, "r");
-  if (LineNumber < 1000 && LineNumber > 99) {
+  if (line_number < 1000 && line_number > 99) {
     while (fgets(line, sizeof(line), file1)) {
       if (i > 99) {
         printf("%d| %s", i, line);
@@ -73,7 +75,7 @@ int main(int argc, char* argv[])
       }
     }
   } else {
-    if (LineNumber < 100 && LineNumber > 9) {
+    if (line_number < 100 && line_number > 9) {
       while (fgets(line, sizeof(line), file1)) {
         if (i >= 10) {
           printf("%d| %s", i, line);
@@ -85,7 +87,7 @@ int main(int argc, char* argv[])
         }
       }
     } else {
-      if (LineNumber < 10) {
+      if (line_number < 10) {
         while (fgets(line, sizeof(line), file1)) {
           printf("%d| %s", i, line);
         }
@@ -93,6 +95,7 @@ int main(int argc, char* argv[])
     }
   }
   fclose(file1);
-  Row(LineNumber, max);
+
+  print_horizonal_line(line_number, max);
   return 0;
 }
