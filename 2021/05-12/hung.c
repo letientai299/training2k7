@@ -4,11 +4,12 @@
 char* getname(char c)
 {
   if (33 <= c && c <= 126) {
-    char* str = (char*)malloc(2);
+    char* str = (char*) malloc(2);
     str[0] = c;
     str[1] = 0;
     return str;
   }
+
   switch (c) {
   case 0:
     return "NULL";
