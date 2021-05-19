@@ -35,7 +35,7 @@ ky tu ket tuc bang so 0 (`NULL`).
 ## Bai tap ve nha
 
 - Doc hieu code [`string.c`](./string.c).
-- Lam mot vai thi nghiem de kiem chung cach hiieu cua minh ve `char*`, pointer
+- Lam mot vai thi nghiem de kiem chung cach hieu cua minh ve `char*`, pointer
   arithmetic va `malloc`:
   - Dieu gi xay ra khi `malloc` voi 1k byte, 1 trieu byte hoac 1 ti byte? Tai
     sao?
