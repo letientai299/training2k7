@@ -29,3 +29,17 @@ khong phai toan bo.
 ### Function pointer
 
 Coi [example](./func_pointer.c)
+
+### Condition
+
+Coi [condition.c](./condition.c)
+
+### For loop
+
+Coi [for.c](./for.c)
+
+## Bai Tap
+
+- Hung: tiep tuc lam cho het Intro va Condition
+- Huy: Xem lai code, lam cho code gon va dep hon, lam them bai tap tren
+  Hackerrank.
