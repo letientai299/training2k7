@@ -6,7 +6,7 @@ void buble_sort(int* arr, int size)
     for (int i = 0; i < size - 1 - j; i++) {
       // neu arr[i+1] nho hon arr[i],
       // thi swap 2 phan tu do.
-      if (less(arr[i + 1], arr[i])) {
+      if (less_or_equal(arr[i + 1], arr[i])) {
         swap(arr, i, i + 1);
       }
     }
@@ -20,7 +20,7 @@ void insertion_sort(int* arr, int size)
     int memory = arr[i];
     // chi quan tam den compare giua cac phan tu ben trong array,
     // khong quan tam den compare index.
-    while (less(memory, arr[j]) && (j >= 0)) {
+    while (less_or_equal(memory, arr[j]) && (j >= 0)) {
       arr[j + 1] = arr[j];
       count_swap++;
       --j;
@@ -42,20 +42,20 @@ void quick_sort_recursive(int* arr, int start, int end)
   int left = start;
   int right = end - 1;
 
-  while (strict_less(left, right)) {
-    while (strict_less(left, right) && less(arr[left], pivot)) {
+  while (less(left, right)) {
+    while (less(left, right) && less_or_equal(arr[left], pivot)) {
       left++;
     }
-    while (strict_less(left, right) && strict_less(pivot, arr[right])) {
+    while (less(left, right) && less(pivot, arr[right])) {
       right--;
     }
 
-    if (strict_less(left, right)) {
+    if (less(left, right)) {
       swap(arr, left, right);
     }
   }
 
-  if (strict_less(arr[left], pivot)) {
+  if (less(arr[left], pivot)) {
     swap(arr, start, left);
   }
   int mid = left;

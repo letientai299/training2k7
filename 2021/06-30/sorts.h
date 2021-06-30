@@ -1,3 +1,4 @@
+// best practice, tranh bi loi khi include file header nhieu lan
 #pragma once
 
 #include <stdbool.h>
@@ -13,7 +14,7 @@ const int num_experiments = 40;
 // and upper limit.
 int* gen_array(int size, int limit)
 {
-  int* arr = calloc(size, sizeof(int));
+  int* arr = (int*) calloc(size, sizeof(int));
   for (int i = 0; i < size; i++) {
     int n = rand() % limit;
     arr[i] = n;
@@ -43,13 +44,13 @@ void swap(int* arr, int i, int j)
 
 int count_compare = 0;
 
-bool less(int x, int y)
+bool less_or_equal(int x, int y)
 {
   count_compare++;
   return x <= y;
 }
 
-bool strict_less(int x, int y)
+bool less(int x, int y)
 {
   count_compare++;
   return x < y;
