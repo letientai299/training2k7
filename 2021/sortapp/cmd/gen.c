@@ -57,8 +57,10 @@ int main(int argc, char* argv[])
     return 1;
   }
 
+  debug("All input are valid");
+
   char out_file_name[20];
-  snprintf(out_file_name, sizeof(out_file_name), "text_%d.txt", size_of_array);
+  snprintf(out_file_name, sizeof(out_file_name), "test_%d.txt", size_of_array);
   debugf("Generating %s contains %d numbers, upper=%d, lower=%d", out_file_name,
       size_of_array, upper_bound, lower_bound);
 
