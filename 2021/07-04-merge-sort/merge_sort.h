@@ -1,5 +1,6 @@
 #include "common.h"
 
+// private API (Application Programming Interface)
 void merge_sort_recursive(int* arr, int start, int end)
 {
   if (end - start <= 1) {
@@ -37,4 +38,5 @@ void merge_sort_recursive(int* arr, int start, int end)
   free(temp);
 }
 
+// public
 void merge_sort(int* arr, int size) { merge_sort_recursive(arr, 0, size); }
