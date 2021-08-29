@@ -6,4 +6,5 @@
 !*.h
 !*.md
 !*.yaml
+!.gitkeep
 .ccls-cache
