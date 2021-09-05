@@ -30,3 +30,6 @@
 ### Solution for `delete`
 
 ## Bai tap ve nha
+
+- Xem bai phong van ve Linus: https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux/transcript?language=en
+- Giai duoc it nhat 1 bai Medidum ve linked list
