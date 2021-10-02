@@ -2,20 +2,7 @@
 #include <stdio.h>
 #include <strings.h>
 
-#define DEFAULT_CAPACITY 1
-
-void tree_print_recursive(Tree root) {
-    if (root) {
-        printf("%d ", root->val);
-        tree_print_recursive(root->left);
-        tree_print_recursive(root->right);
-    }
-}
-
-void tree_print(Tree root) {
-    tree_print_recursive(root);
-    printf("\b\n");
-}
+#define DEFAULT_CAPACITY 16
 
 Tree tree_node_new(int val) {
     if (val == NA) {
@@ -78,6 +65,8 @@ Ints tree_collect_level_order(Tree root, bool withNA) {
 
     for (int i = 0; i < end; i++) {
         if (end >= capacity) {
+            // make sure that the returning array has enough space to store
+            // tree nodes.
             capacity = capacity * 2 + 1;
             arr.values = (int *) reallocf(arr.values, capacity * sizeof(int));
             queue = (Tree *) reallocf(queue, capacity * sizeof(Tree));
@@ -96,6 +85,12 @@ Ints tree_collect_level_order(Tree root, bool withNA) {
         queue[end++] = node->right;
     }
 
+    // trim NA values at the end of the array
+    while (arr.values[arr.size - 1] == NA) {
+        arr.size--;
+    }
+
+    // reduce array size
     arr.values = (int *) realloc(arr.values, arr.size * sizeof(int));
 
     free(queue);
@@ -103,7 +98,44 @@ Ints tree_collect_level_order(Tree root, bool withNA) {
 }
 
 char *tree_str(Tree root) {
-    return "";
+    Ints arr = tree_collect_level_order(root, true);
+    if (arr.size == 0 || arr.values[0] == NA) {
+        // return if the tree is empty
+        return "";
+    }
+
+    int len = 0;
+    for (int i = 0; i < arr.size; ++i) {
+        int v = arr.values[i];
+        // using snprintf(NULL, 0, ...) to find the required length to print
+        len += (v == NA) ? 2 : snprintf(NULL, 0, "%d", v);
+        len += 2; // comma and space
+    }
+
+    // root node doesn't need comma and space, thus, -2,
+    // but, we need 1 byte to terminate the string, thus, +1
+    // hence, -1 here.
+    len--;
+    char *buf = (char *) calloc(len, sizeof(char));
+
+    // print the root node first
+    int end = snprintf(buf, len, "%d", arr.values[0]);
+
+    // start from 1, for each node, print a comma and a space before its value
+    for (int i = 1; i < arr.size; ++i) {
+        int v = arr.values[i];
+        if (v == NA) {
+            end += snprintf(buf + end, len, ", NA");
+        } else {
+            end += snprintf(buf + end, len, ", %d", v);
+        }
+    }
+
+    return buf;
+}
+
+void tree_print(Tree root) {
+    printf("%s\n", tree_str(root));
 }
 
 
