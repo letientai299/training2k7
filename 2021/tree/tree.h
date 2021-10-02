@@ -1,9 +1,14 @@
 #include <limits.h>
-#include <stdlib.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #define NA INT_MIN
-#define debug(x) printf("%s:%d " #x " = %d\n", __FILE__, __LINE__, (x))
+
+#define debug(x) \
+    printf("\x1b[1;36m[DEBUG]\x1b[0m %s:%d " #x " = %d\n", __FILE__, __LINE__, (x))
+
+#define error(fmt, ...) \
+    _log("\x1b[1;31m[ERROR]\x1b[0m %s:%d " fmt, __FILE__, __LINE__, __VA_ARGS__)
 
 struct TreeNode {
     int val;
@@ -46,12 +51,7 @@ typedef struct Ints_ {
  */
 Tree tree_new(Ints arr);
 
-/**
- * Shortcut to create a new TreeNode.
- *
- * Input:
- * - val: value of the node
- */
+/** Shortcut to create a new TreeNode. */
 Tree tree_node_new(int val);
 
 /**
@@ -97,8 +97,10 @@ Ints tree_collect_level_order(Tree root, bool withNA);
  */
 char *tree_str(Tree root);
 
- /**
-  * Shortcut to print tree_str().
-  */
+/** Shortcut to print tree_str(). */
 void tree_print(Tree root);
 
+/** Assert that 2 trees are equal */
+bool assert_tree_equal(Tree a, Tree b);
+
+void _log(const char *fmt, ...);

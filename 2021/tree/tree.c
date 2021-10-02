@@ -1,6 +1,7 @@
 #include "tree.h"
 #include <stdio.h>
 #include <strings.h>
+#include <stdarg.h>
 
 #define DEFAULT_CAPACITY 16
 
@@ -139,4 +140,24 @@ void tree_print(Tree root) {
 }
 
 
+void _log(const char *fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    vprintf(fmt, args);
+    va_end(args);
+    unsigned n = strlen(fmt);
+    if (fmt[n - 1] != '\n') {
+        printf("\n");
+    }
+}
+
+bool assert_tree_equal(Tree a, Tree b) {
+    char *a_str = tree_str(a);
+    char *b_str = tree_str(b);
+    bool equal = strcmp(a_str, b_str) == 0;
+    if (!equal) {
+        error("Trees are different!\na=%s\nb=%s", a_str, b_str);
+    }
+    return equal;
+}
 
