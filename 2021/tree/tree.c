@@ -1,23 +1,25 @@
 #include "tree.h"
-#include <stdio.h>
-#include <strings.h>
 #include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
 
 #define DEFAULT_CAPACITY 16
 
-Tree tree_node_new(int val) {
+Tree tree_node_new(int val)
+{
     if (val == NA) {
         return NULL;
     }
 
-    Tree node = (Tree) calloc(1, sizeof(struct TreeNode));
+    Tree node = (Tree)calloc(1, sizeof(struct TreeNode));
     node->val = val;
     return node;
 }
 
-Tree tree_new(Ints arr) {
+Tree tree_new(Ints arr)
+{
     int count = arr.size;
-    int *values = arr.values;
+    int* values = arr.values;
 
     if (count == 0 || values == NULL) {
         return NULL;
@@ -25,7 +27,7 @@ Tree tree_new(Ints arr) {
 
     Tree root = tree_node_new(values[0]);
 
-    Tree *queue = (Tree *) calloc(count, sizeof(Tree));
+    Tree* queue = (Tree*)calloc(count, sizeof(Tree));
     queue[0] = root;
     int qi = 0;
     int end = 1;
@@ -51,15 +53,16 @@ Tree tree_new(Ints arr) {
     return root;
 }
 
-Ints tree_collect_level_order(Tree root, bool withNA) {
+Ints tree_collect_level_order(Tree root, bool withNA)
+{
     Ints arr = {};
     if (!root) {
         return arr;
     }
 
     int capacity = DEFAULT_CAPACITY;
-    arr.values = (int *) calloc(capacity, sizeof(int));
-    Tree *queue = (Tree *) calloc(capacity, sizeof(Tree));
+    arr.values = (int*)calloc(capacity, sizeof(int));
+    Tree* queue = (Tree*)calloc(capacity, sizeof(Tree));
 
     queue[0] = root;
     int end = 1;
@@ -69,8 +72,8 @@ Ints tree_collect_level_order(Tree root, bool withNA) {
             // make sure that the returning array has enough space to store
             // tree nodes.
             capacity = capacity * 2 + 1;
-            arr.values = (int *) reallocf(arr.values, capacity * sizeof(int));
-            queue = (Tree *) reallocf(queue, capacity * sizeof(Tree));
+            arr.values = (int*)realloc(arr.values, capacity * sizeof(int));
+            queue = (Tree*)realloc(queue, capacity * sizeof(Tree));
         }
 
         Tree node = queue[i];
@@ -92,13 +95,14 @@ Ints tree_collect_level_order(Tree root, bool withNA) {
     }
 
     // reduce array size
-    arr.values = (int *) realloc(arr.values, arr.size * sizeof(int));
+    arr.values = (int*)realloc(arr.values, arr.size * sizeof(int));
 
     free(queue);
     return arr;
 }
 
-char *tree_str(Tree root) {
+char* tree_str(Tree root)
+{
     Ints arr = tree_collect_level_order(root, true);
     if (arr.size == 0 || arr.values[0] == NA) {
         // return if the tree is empty
@@ -117,7 +121,7 @@ char *tree_str(Tree root) {
     // but, we need 1 byte to terminate the string, thus, +1
     // hence, -1 here.
     len--;
-    char *buf = (char *) calloc(len, sizeof(char));
+    char* buf = (char*)calloc(len, sizeof(char));
 
     // print the root node first
     int end = snprintf(buf, len, "%d", arr.values[0]);
@@ -135,12 +139,10 @@ char *tree_str(Tree root) {
     return buf;
 }
 
-void tree_print(Tree root) {
-    printf("%s\n", tree_str(root));
-}
+void tree_print(Tree root) { printf("%s\n", tree_str(root)); }
 
-
-void _log(const char *fmt, ...) {
+void _log(const char* fmt, ...)
+{
     va_list args;
     va_start(args, fmt);
     vprintf(fmt, args);
@@ -151,13 +153,13 @@ void _log(const char *fmt, ...) {
     }
 }
 
-bool assert_tree_equal(Tree a, Tree b) {
-    char *a_str = tree_str(a);
-    char *b_str = tree_str(b);
+bool assert_tree_equal(Tree a, Tree b)
+{
+    char* a_str = tree_str(a);
+    char* b_str = tree_str(b);
     bool equal = strcmp(a_str, b_str) == 0;
     if (!equal) {
         error("Trees are different!\na=%s\nb=%s", a_str, b_str);
     }
     return equal;
 }
-
